@@ -47,13 +47,13 @@ def case1():
                 nombre = input("Ingresa tu nombre: ")
                 apellido = input("Ingresa tu apellido: ")
                 print(SUCCESS +"Nombre y Apellido guardado con exito"+ RESET)
-                
-                agestudent = int(input("Ingresa tu edad: "))
-                if agestudent<0:
-                    print(WARNING +"Error. Debes de ingresar una edad correcta" + RESET)
-                else:
-                    print(SUCCESS +"Guardado con exito"+ RESET)
-                    
+                while True:
+                    agestudent = int(input("Ingresa tu edad: "))
+                    if agestudent<0:
+                        print(WARNING +"Error. Debes de ingresar una edad correcta" + RESET)
+                    else:
+                        print(SUCCESS +"Guardado con exito"+ RESET)
+                        break
                 while True:
                     try:
                         gradestudent = float(input("Por favor ingresa la nota (0.0 - 5.0): "))                
@@ -76,7 +76,58 @@ def case1():
                     print(SUCCESS +"El usuario se ha registrado correctamente."+ RESET)
                     break        
                 print(students)
-                
+def case2():
+    print("\n--- BUSCAR ESTUDIANTE ---")
+    while True:
+        try:
+            search_id = int(input("Ingrese el ID del estudiante: "))
+            if search_id in students:
+                print("\nInformación del estudiante:")
+                print(f"ID: {search_id}")
+                print(f"Nombre: {students[search_id]['Name']}")
+                print(f"Edad: {students[search_id]['Age']}")
+                print(f"Nota: {students[search_id]['Grade']}")
+            else:
+                print(WARNING +"No se encontró ningún estudiante con ese ID"+ RESET)
+        except ValueError:
+                print(WARNING +"Error: El ID debe ser un número"+ RESET)
+                break
+        print(SUCCESS +"Busqueda con exito"+ RESET)
+             
+def case3():
+        print("\n--- ACTUALIZAR ESTUDIANTE ---")
+        identity=input("Por favor ingresa el ID del estudiante a actualizar: ")
+        actu=int(input("1) actualizar edad\n2) actualizar nota: \n"))
+
+        if actu==1:
+            while True:
+                Age=int(input("Por favor ingresa la nueva edad: "))
+                if Age<0:
+                    print(WARNING +"Error. Debes de ingresar una edad correcta" + RESET)
+                else:
+                    students[int(identity)].update({"Age": Age})
+                    print(SUCCESS +"Dato actualizado con exito"+ RESET)
+
+                    student= students.get(int(identity),{})
+                    print(f"Nombre: {student.get('Name')}")
+                    print(f"Edad: {student.get('Age')}")
+                    print(f"Nota: {student.get('Grade')}")
+                    break
+        if actu==2:
+            while True:             
+                grade=float(input("Por favor ingresa la nota nueva: "))
+                if 0.0 <= grade >= 5.0:
+                    print(WARNING +"Error. Debes de ingresar una nota correcta" + RESET)
+                else: 
+                    students[float(identity)].update({"Grade":grade})
+                    print(SUCCESS +"Dato actualizado con exito"+ RESET)
+
+                    student=students.get(float(identity),{})
+                    print(f"Nombre: {student.get('Name')}")
+                    print(f"Edad: {student.get('Age')}")
+                    print(f"Nota: {student.get('Grade')}")
+                    break          
+                    
 def case4():
         print(WARNING +" Estas a punto de eliminar un usuario :O "+ RESET)   
         identificacion = int(input("Ingresa la identificacion de la persona a eliminar: "))
@@ -101,8 +152,8 @@ def case5():
          
 def case6():
     for student in students.values():
-                if  float(student["Grade"]) < 3.0 : 
-                    print(f"Este personaje va perdiendo :( {student['Name']} --- {student['Grade']}")
+        if  float(student["Grade"]) < 3.0 : 
+            print(f"Este personaje va perdiendo :( {student['Name']} --- {student['Grade']}")
                
 menu1 = True
 
@@ -112,6 +163,10 @@ while menu1:
     match answer:
         case 1:
            case1()
+        case 2:
+            case2()
+        case 3:
+            case3()
         case 4: 
             case4()  
         case 5:   
