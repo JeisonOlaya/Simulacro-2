@@ -1,0 +1,50 @@
+products = {}
+
+def menu():
+    print("BIENVENIDO AL INVENTARIO")
+    print("\n=====MENU DE OPCIONES====\n")
+    print("1.) Añadir producto")
+    print("2.) Consultar Producto")
+    print("3.) Actualizar producto")
+    print("4.) Calcular el valor total del inventario")
+    return int(input("\nPor favor selecciona una opcion: "))
+
+menu1 = True
+
+while menu1:
+    answer = menu()
+
+    match answer:
+        case 1:
+            print("\n---AGREGAR PRODUCTO---\n")
+            # Pedir 5 productos como solicitaste
+            for i in range(5):
+                nameproduct = input(f"\nPor favor ingresa el nombre del producto {i+1}: ")
+                price = float(input("Por favor ingresa el precio del producto: "))
+                quantity = int(input("Por favor ingresa la cantidad del producto: "))
+                
+                products[nameproduct] = {
+                    "price": price,
+                    "quantity": quantity
+                }
+                print(f"Producto '{nameproduct}' agregado correctamente.")
+
+        case 2:
+            print("\n---CONSULTAR PRODUCTO---\n")
+            search_name = input("Por favor ingresa el nombre del producto que deseas consultar: ")
+            
+            if search_name in products:
+                print("\nInformación del producto:")
+                print(f"Nombre: {search_name}")
+                print(f"Precio: {products[search_name]['price']}")
+                print(f"Cantidad: {products[search_name]['quantity']}")
+            else:
+                print("No se encontró el producto")
+
+        case 3:
+            # Aquí iría la lógica para actualizar producto
+            pass
+
+        case 4:
+            # Aquí iría la lógica para calcular el valor total
+            pass
